@@ -1,0 +1,44 @@
+lab 4 zadanie 1
+a)
+Select*from postac
+delete from postac where id_postaci=4;
+delete from postac where id_postaci=2;
+b)desc postac;
+SET foreign_key_checks=0;
+alter table walizka drop foreign key walizka_ibfk_1;
+alter table przetwory drop foreign key przetwory_ibfk_1;
+alter table przetwory drop foreign key przetwory_ibfk_2;
+ALTER TABLE postac DROP PRIMARY KEY;
+
+Zadanie 2
+a)
+ALTER TABLE postac ADD pesel char(11) first;
+update postac set pesel='21345678619' + id_postaci;
+ALTER TABLE postac ADD PRIMARY KEY(pesel);
+
+b)
+ALTER TABLE postac MODIFY COLUMN rodzaj ENUM('wiking','ptak','kobieta','syrena');
+c)
+INSERT INTO postac values('23245478901',9,'Gertruda Nieszczera','syrena','1950-12-22',82,'brak','brak');
+
+Zadanie 3
+a)
+update  postac set nazwa_statku='Gloria' WHERE nazwa LIKE '%a%';
+b)
+select*from statek;
+update statek set max_ladownosc=(max_ladownosc*0.7) WHERE data_wodowania <'2000-01-01' AND data_wodowania >'1901-01-01';
+
+
+Zadanie 4
+a)
+ALTER TABLE postac MODIFY COLUMN rodzaj ENUM('wiking','ptak','kobieta','syrena','waz');
+insert into postac values ('brak','10','Loko','waz',null,null,null,null);
+b)
+create table marynarz like postac;
+insert into marynarz select * from postac;
+c)
+ALTER TABLE marynarz ADD FOREIGN KEY (nazwa_statku) REFERENCES statek(nazwa_statku);
+
+Zadanie 5
+update marynarz set nazwa_statku= null;
+
