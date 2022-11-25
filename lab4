@@ -40,5 +40,13 @@ c)
 ALTER TABLE marynarz ADD FOREIGN KEY (nazwa_statku) REFERENCES statek(nazwa_statku);
 
 Zadanie 5
+a)
 update marynarz set nazwa_statku= null;
-
+b)
+delete from marynarz where id_postaci=5;
+c)
+delete from statek;
+d)
+drop table statek;
+e)
+create table zwierz(id int auto_increment primary key, nazwa varchar(40),wiek int);
