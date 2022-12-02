@@ -1,0 +1,8 @@
+LAB 6
+ZADANIE 1
+1.SELECT AVG(waga) FROM kreatura WHERE rodzaj='wiking';
+2.SELECT rodzaj,count(rodzaj),AVG(waga)  FROM kreatura GROUP BY rodzaj;
+3.SELECT rodzaj, 2022-AVG(YEAR(dataUR)) AS 'sredni wiek' FROM kreatura GROUP BY rodzaj;
+
+ZADANIE 2.
+SELECT rodzaj,SUM(waga) FROM zasob GROUP BY rodzaj;
