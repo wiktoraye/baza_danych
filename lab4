@@ -50,3 +50,5 @@ d)
 drop table statek;
 e)
 create table zwierz(id int auto_increment primary key, nazwa varchar(40),wiek int);
+f)
+insert into zwierz (nazwa,wiek) select nazwa,wiek from postac where postac.rodzaj like 'wąż' or postac.rodzaj like 'ptak';
