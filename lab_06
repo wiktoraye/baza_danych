@@ -8,3 +8,13 @@ ZADANIE 2.
 1.SELECT rodzaj,SUM(waga) FROM zasob GROUP BY rodzaj;
 2.SELECT nazwa,AVG(waga) AS średnia_waga FROM zasob WHERE (ilosc)>4 GROUP BY nazwa HAVING AVG(waga)>10;
 3.SELECT nazwa,count(idZasobu) AS liczba_rodzajow FROM zasob WHERE (ilosc)>1 GROUP BY nazwa;
+
+ZAD 3
+1.SELECT kreatura.nazwa , SUM(ekwipunek.ilosc) FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury = kreatura.idKreatury GROUP BY kreatura.nazwa;
+2.SELECT kreatura.nazwa , zasob.nazwa FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury = kreatura.idKreatury INNER JOIN zasob ON ekwipunek.idzasobu=zasob.idzasobu order by kreatura.nazwa;
+3.SELECT kreatura.nazwa  FROM kreatura LEFT JOIN ekwipunek ON kreatura.idKreatury=ekwipunek.idKreatury where ekwipunek.idkreatury IS NULL;
+
+ZAD 4
+1.SELECT kreatura.nazwa , zasob.nazwa FROM kreatura NATURAL JOIN ekwipunek INNER JOIN zasob ON ekwipunek.idzasobu=zasob.idzasobu WHERE YEAR(dataUr) BETWEEN 1670 AND 1679 ORDER BY kreatura.nazwa;
+2.SELECT kreatura.nazwa , zasob.nazwa FROM kreatura NATURAL JOIN ekwipunek INNER JOIN zasob ON ekwipunek.idzasobu=zasob.idzasobu WHERE zasob.rodzaj='jedzenie' LIMIT 5;
+3.
