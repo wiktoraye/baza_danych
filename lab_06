@@ -17,4 +17,12 @@ ZAD 3
 ZAD 4
 1.SELECT kreatura.nazwa , zasob.nazwa FROM kreatura NATURAL JOIN ekwipunek INNER JOIN zasob ON ekwipunek.idzasobu=zasob.idzasobu WHERE YEAR(dataUr) BETWEEN 1670 AND 1679 ORDER BY kreatura.nazwa;
 2.SELECT kreatura.nazwa , zasob.nazwa FROM kreatura NATURAL JOIN ekwipunek INNER JOIN zasob ON ekwipunek.idzasobu=zasob.idzasobu WHERE zasob.rodzaj='jedzenie' LIMIT 5;
-3.
+3.SELECT  k1.nazwa,k2.nazwa FROM kreatura k1 INNER JOIN kreatura k2 ON (k1.idKreatury+5=k2.idKreatury);
+
+Zad 5
+1.SELECT kreatura.rodzaj,AVG(zasob.waga*ekwipunek.ilosc) AS srednia FROM kreatura INNER JOIN ekwipunek ON (kreatura.idKreatury=ekwipunek.idKreatury)
+INNER JOIN zasob ON (ekwipunek.idZasobu=zasob.idZasobu) WHERE kreatura.rodzaj!='malpa' OR kreatura.rodzaj!='waz' 
+GROUP BY rodzaj HAVING sum(ekwipunek.ilosc)<30;
+
+2.SELECT kreatura.nazwa, kreatura.rodzaj, kreatura.dataUr FROM kreatura ,(SELECT min(dataUr) AS min,max(dataUr) AS max from kreatura group by rodzaj) e2 WHERE dataUr = min OR dataUr=max;
+
