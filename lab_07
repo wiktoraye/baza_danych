@@ -8,3 +8,43 @@ CREATE TABLE wyprawa SELECT * FROM wikingowie.wyprawa;
 
 3.SELECT w.nazwa, SUM(e.ilosc)AS Suma FROM wyprawa AS w INNER JOIN uczestnicy AS u ON (u.id_wyprawy=w.id_wyprawy) INNER JOIN ekwipunek as e ON(u.id_uczestnika=e.idKreatury) group by w.nazwa;
 
+ZAD 2
+
+1.SELECT wyprawa.nazwa,count(uczestnicy.id_uczestnika) AS Liczba_Uczestników ,group_concat(kreatura.nazwa) AS Uczestnicy FROM wyprawa INNER JOIN uczestnicy ON(wyprawa.id_wyprawy=uczestnicy.id_wyprawy) INNER JOIN kreatura ON(uczestnicy.id_uczestnika=kreatura.idKreatury) GROUP BY wyprawa.nazwa;
+
+2.SELECT wyprawa.nazwa,kreatura.nazwa,etapy_wyprawy.sektor,sektor.nazwa FROM wyprawa 
+INNER JOIN etapy_wyprawy ON(wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy) 
+INNER JOIN sektor ON(etapy_wyprawy.sektor=sektor.id_sektora)
+INNER JOIN kreatura ON(wyprawa.kierownik=kreatura.idKreatury)
+ORDER BY wyprawa.data_rozpoczecia,etapy_wyprawy.kolejnosc;
+
+ZAD 3
+1.SELECT ifnull(count(etapy_wyprawy.sektor),0) AS ilosc_odwiedzin, sektor.nazwa FROM sektor 
+LEFT JOIN etapy_wyprawy ON (etapy_wyprawy.sektor=sektor.id_sektora) GROUP BY sektor.id_sektora;
+
+2.SELECT idKreatury, IF(count(uczestnicy.id_wyprawy)>0,'bral udzial w wyprawie','nie bral udzialu w wyprawie') AS 'Czy bral udzial w wyprawie' FROM kreatura LEFT JOIN uczestnicy ON kreatura.idKreatury = uczestnicy.id_uczestnika GROUP BY kreatura.nazwa;
+
+ZAD 4
+1.SELECT wyprawa.nazwa, SUM(LENGTH(etapy_wyprawy.dziennik)) FROM wyprawa INNER JOIN etapy_wyprawy ON (wyprawa.id_wyprawy=etapy_wyprawy.idWyprawy) GROUP BY wyprawa.nazwa HAVING SUM(length(etapy_wyprawy.dziennik))<400;
+
+2.select w.nazwa, sum(e.ilosc * z.waga) / count(distinct u.id_uczestnika) as srednio
+from wyprawa w
+inner join uczestnicy u on w.id_wyprawy=u.id_wyprawy
+inner join ekwipunek e on u.id_uczestnika=e.idKreatury
+inner join zasob z on e.idZasobu=z.idZasobu
+group by w.id_wyprawy;
+
+ZAD 5
+SELECT k.nazwa,
+w.nazwa,
+DATEDIFF(w.data_rozpoczecia, k.dataUr) as 'Wiek w dniach'
+FROM kreatura k,
+etapy_wyprawy ew,
+wyprawa w,
+sektor s,
+uczestnicy u
+WHERE ew.sektor = s.id_sektora
+and k.idKreatury=u.id_uczestnika
+and u.id_wyprawy=w.id_wyprawy
+AND ew.idWyprawy = w.id_wyprawy
+AND s.nazwa = "Chatka dziadka";`
