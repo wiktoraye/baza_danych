@@ -1,0 +1,29 @@
+
+
+ZAD 1
+SELECT imie,nazwisko,data_urodzenia FROM pracownik;
+
+ZAD 2
+SELECT imie,nazwisko,2023-YEAR(data_urodzenia) as Wiek FROM pracownik;
+
+ZAD 3
+SELECT dzial.nazwa,COUNT(pracownik.id_pracownika) as Liczba_pracownikow FROM dzial INNER JOIN pracownik ON dzial.id_dzialu=pracownik.dzial GROUP BY dzial.nazwa;
+
+ZAD 4
+SELECT nazwa_kategori, SUM(ilosc) FROM kategoria INNER JOIN towar ON kategoria.id_kategori=towar.kategoria INNER JOIN stan_magazynowy ON stan_magazynowy.towar=towar.id_towaru  GROUP BY id_kategori; 
+
+ZAD 5
+SELECT nazwa_kategori, group_concat(nazwa_towaru) as Produkty  FROM kategoria INNER JOIN towar ON kategoria.id_kategori=towar.kategoria GROUP BY id_kategori;
+
+ZAD 6
+SELECT round(AVG(pensja),2) FROM pracownik;
+
+ZAD 7
+SELECT AVG(pensja) FROM pracownik WHERE ( 2023 - YEAR(data_zatrudnienia))>=5;
+
+ZAD 8
+SELECT nazwa_towaru, COUNT(id_pozycji) FROM pozycja_zamowienia JOIN towar ON towar.id_towaru=pozycja_zamowienia.towar GROUP BY nazwa_towaru ORDER BY COUNT(id_pozycji) DESC LIMIT 10
+
+Zad 9
+Select numer_zamowienia, (cena) AS wartosc from zamowienie JOIN  pozycja_zamowienia ON zamowienie.id_zamowienia=pozycja_zamowienia.zamowienie WHERE month(data_zamowienia) <4 AND year(data_zamowienia) =2017;
+
